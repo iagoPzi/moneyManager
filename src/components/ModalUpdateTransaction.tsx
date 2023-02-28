@@ -1,8 +1,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { ArrowFatDown, ArrowFatUp, X } from "phosphor-react";
 import { FormEvent, useContext, useEffect, useState } from "react";
-import { ValueContext } from "../Context/ValueContext";
-import { api } from "../services/api";
+import { ValueContext } from "../Context/TransactionsContext";
 
 interface ModalCreateTransactionProps {
   handleModal: () => void;
@@ -13,7 +12,6 @@ export function ModalUpdateTransaction({
   handleModal,
   idToUpdate,
 }: ModalCreateTransactionProps) {
-  
   interface TransactionsProps {
     id: string;
     title: string;
@@ -27,11 +25,11 @@ export function ModalUpdateTransaction({
     {} as TransactionsProps
   );
 
-  useEffect(() => {
-    api
-      .get(`transaction/${idToUpdate}`)
-      .then((res) => setUniqueTransaction(res.data));
-  }, []);
+  // useEffect(() => {
+  //   api
+  //     .get(`transaction/${idToUpdate}`)
+  //     .then((res) => setUniqueTransaction(res.data));
+  // }, []);
 
   const [title, setTitle] = useState(uniqueTransaction.title);
   const [category, setCategory] = useState("");
@@ -39,24 +37,21 @@ export function ModalUpdateTransaction({
   const [transactionType, setTransactionType] = useState(
     uniqueTransaction.type
   );
-  console.log(title, category, amount, transactionType)
+  console.log(title, category, amount, transactionType);
 
-  const { callRefresh } = useContext(ValueContext);
+  // async function handleUpdateTransaction(e: FormEvent) {
+  //   e.preventDefault();
 
-  async function handleUpdateTransaction(e: FormEvent) {
-    e.preventDefault();
-
-    await api
-      .put(`transactionupdate/${idToUpdate}`, {
-        titleUpdate: title,
-        amountUpdate: amount,
-        categoryUpdate: category,
-        typeUpdate: transactionType,
-      })
-      .then((response) => console.log(response.data));
-    handleModal();
-    callRefresh();
-  }
+  //   await api
+  //     .put(`transactionupdate/${idToUpdate}`, {
+  //       titleUpdate: title,
+  //       amountUpdate: amount,
+  //       categoryUpdate: category,
+  //       typeUpdate: transactionType,
+  //     })
+  //     .then((response) => console.log(response.data));
+  //   handleModal();
+  // }
 
   return (
     <Dialog.Portal>
@@ -132,7 +127,7 @@ export function ModalUpdateTransaction({
             className="bg-zinc-300 p-2 rounded"
           />
 
-          <Dialog.Close onClick={handleUpdateTransaction}>
+          <Dialog.Close /* onClick={handleUpdateTransaction} */>
             Cadastrar
           </Dialog.Close>
         </form>

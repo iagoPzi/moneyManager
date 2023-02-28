@@ -1,9 +1,8 @@
 import * as Popover from "@radix-ui/react-popover";
 import * as Dialog from "@radix-ui/react-dialog";
 import { DotsThreeVertical, Pencil, Trash } from "phosphor-react";
-import { api } from "../services/api";
 import { useContext, useState } from "react";
-import { ValueContext } from "../Context/ValueContext";
+import { TransactionContext } from "../Context/TransactionsContext";
 import { ModalUpdateTransaction } from "./ModalUpdateTransaction";
 
 interface PopoverProps {
@@ -18,18 +17,13 @@ export function PopOver({ type, id }: PopoverProps) {
     setIsModalOpen(!isModalOpen);
   }
 
-  const { callRefresh } = useContext(ValueContext);
-
   async function DeleteTransaction() {
-    await api.delete("transaction", {
-      data: {
-        id: id,
-      },
-    });
-    callRefresh();
+    // await api.delete("transaction", {
+    //   data: {
+    //     id: id,
+    //   },
+    // });
   }
-
-
 
   return (
     <Popover.Root>

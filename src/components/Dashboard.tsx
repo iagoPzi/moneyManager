@@ -1,14 +1,11 @@
 import { ArrowFatUp, ArrowFatDown, CurrencyDollarSimple } from "phosphor-react";
 import { useContext } from "react";
-import { ValueContext } from "../Context/ValueContext";
+import { TransactionContext } from "../Context/TransactionsContext";
 import { Card } from "./Card";
-import { Header } from "./Header";
 import { TransactionsTable } from "./TransactionsTable";
 
 export function Dashboard() {
-
-
- const {summary} = useContext(ValueContext);
+  const { summary } = useContext(TransactionContext);
 
   return (
     <>

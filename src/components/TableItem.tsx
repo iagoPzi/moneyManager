@@ -1,3 +1,6 @@
+import { Trash } from "phosphor-react";
+import { useContext } from "react";
+import { TransactionContext } from "../Context/TransactionsContext";
 import { PopOver } from "./PopOver";
 
 interface TableItemProps {
@@ -19,9 +22,7 @@ export function TableItem({
 }: TableItemProps) {
   var date = new Date(createdAt);
 
-
-
-
+  const { deleteTransaction } = useContext(TransactionContext);
 
   return (
     <tr
@@ -33,10 +34,15 @@ export function TableItem({
       <th>{amount}</th>
       <th>{category}</th>
       <th>{date.toLocaleDateString()}</th>
-
       <th>
-        <PopOver type={type} id={id}/>
+        <button onClick={() => deleteTransaction(id)} title="Apagar item">
+          <Trash weight="fill" />
+        </button>
       </th>
+
+      {/* <th>
+        <PopOver type={type} id={id}/>
+      </th> */}
       {/* <th>{new Intl.DateTimeFormat("pt-BR").format(date)}</th> */}
     </tr>
   );

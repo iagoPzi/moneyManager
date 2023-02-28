@@ -1,47 +1,51 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { ArrowFatDown, ArrowFatUp, X } from "phosphor-react";
 import { FormEvent, useContext, useState } from "react";
-import { ValueContext } from "../Context/ValueContext";
-import { api } from "../services/api";
-
-
+import { TransactionContext } from "../Context/TransactionsContext";
+import { v4 as uuid } from "uuid";
 
 interface ModalCreateTransactionProps {
-  handleModal:() => void;
+  handleModal: () => void;
 }
 
-export function ModalCreateTransaction({handleModal}:ModalCreateTransactionProps) {
+export function ModalCreateTransaction({
+  handleModal,
+}: ModalCreateTransactionProps) {
+  const { addTransactions } = useContext(TransactionContext);
+
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState(0);
   const [transactionType, setTransactionType] = useState("income");
 
-  const {callRefresh} = useContext(ValueContext);
+  const Transaction = {
+    id: uuid(),
+    title,
+    category,
+    amount,
+    type: transactionType,
+    createdAt: Date(),
+  };
 
-  async function handleNewTransaction(e: FormEvent) {
+  function handleNewTransaction(e: FormEvent) {
     e.preventDefault();
 
-    await api.post("transactions", {
-      title: title,
-      amount: amount,
-      category: category,
-      type: transactionType,
-    });
+    addTransactions(Transaction);
     setTitle("");
     setCategory("");
     setAmount(0);
     setTransactionType("income");
     handleModal();
-    callRefresh();
   }
   return (
     <Dialog.Portal>
       <Dialog.Overlay className="fixed bg-black/50 inset-0" />
 
       <Dialog.Content
-      onEscapeKeyDown={handleModal}
-      onInteractOutside={handleModal}
-      className="fixed bg-zinc-200 p-5 rounded top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        onEscapeKeyDown={handleModal}
+        onInteractOutside={handleModal}
+        className="fixed bg-zinc-200 p-5 rounded top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+      >
         <Dialog.Title className="text-xl mb-5 font-bold text-zinc-500">
           Cadastrar transação
         </Dialog.Title>
@@ -110,10 +114,8 @@ export function ModalCreateTransaction({handleModal}:ModalCreateTransactionProps
           <Dialog.Close onClick={handleNewTransaction}>Cadastrar</Dialog.Close>
         </form>
 
-        <Dialog.Close
-        onClick={handleModal}
-        className="absolute top-2 right-2">
-          <X className="text-zinc-500 hover:text-zinc-700"/>
+        <Dialog.Close onClick={handleModal} className="absolute top-2 right-2">
+          <X className="text-zinc-500 hover:text-zinc-700" />
         </Dialog.Close>
       </Dialog.Content>
     </Dialog.Portal>

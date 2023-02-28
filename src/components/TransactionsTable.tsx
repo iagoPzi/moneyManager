@@ -1,20 +1,16 @@
 import { DotsThreeVertical } from "phosphor-react";
 import { useContext, useEffect, useState } from "react";
-import { ValueContext } from "../Context/ValueContext";
-import { api } from "../services/api";
+import { TransactionContext } from "../Context/TransactionsContext";
 import { TableItem } from "./TableItem";
 
 export function TransactionsTable() {
-
-
   // const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   // useEffect(() => {
   //   api.get("transactions").then((res) => setTransactions(res.data));
   // }, []);
 
-  const {transactions} = useContext(ValueContext);
-
+  const { transactions } = useContext(TransactionContext);
 
   return (
     <div className="px-4">
@@ -29,7 +25,6 @@ export function TransactionsTable() {
         </thead>
 
         <tbody className="text-zinc-800 md:ml-2">
-
           {transactions.map((transaction) => {
             return (
               <TableItem
