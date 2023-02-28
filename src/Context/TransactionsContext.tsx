@@ -21,11 +21,13 @@ export const TransactionContext = createContext<TransactionContextProps>(
   {} as TransactionContextProps
 );
 
-interface ValueContextProviderProps {
+interface TransactionContextProviderProps {
   children: ReactNode;
 }
 
-export function ValueContextProvider({ children }: ValueContextProviderProps) {
+export function TransactionContextProvider({
+  children,
+}: TransactionContextProviderProps) {
   let TransactionArr = JSON.parse(localStorage.getItem("transactions") || "[]");
 
   const [transactions, setTransactions] =
