@@ -5,12 +5,12 @@ import { Card } from "./Card";
 import { TransactionsTable } from "./TransactionsTable";
 
 export function Dashboard() {
-  const { summary } = useContext(TransactionContext);
+  const { summary, transactions } = useContext(TransactionContext);
 
   return (
     <>
-      <div className="max-w-3xl mx-auto mt-[-5rem]">
-        <main className="flex justify-between mb-5 gap-3 overflow-auto">
+      <main className="max-w-3xl mx-auto mt-[-5rem]">
+        <div className="flex justify-between mb-5 gap-3 overflow-auto">
           <Card
             type="Entradas"
             icon={<ArrowFatUp size={32} weight="fill" />}
@@ -31,9 +31,17 @@ export function Dashboard() {
             value={summary.total}
             color={"bg-green-500 mr-2 md:mr-0"}
           />
-        </main>
-        <TransactionsTable />
-      </div>
+        </div>
+        {transactions.length !== 0 ? (
+          <TransactionsTable />
+        ) : (
+          <div className="flex p-2">
+            <h3 className="mx-auto">
+              Clique em <b>"Nova transação"</b> para adicionar suas contas
+            </h3>
+          </div>
+        )}
+      </main>
     </>
   );
 }

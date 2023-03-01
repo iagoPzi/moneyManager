@@ -50,20 +50,24 @@ export function ModalCreateTransaction({
           Cadastrar transação
         </Dialog.Title>
 
-        <form className="flex flex-col gap-3 w-80">
+        <form
+          onSubmit={handleNewTransaction}
+          className="flex flex-col gap-3 w-80"
+        >
           <input
             placeholder="Título"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             className="bg-zinc-300 p-2 rounded"
+            required
           />
 
           <input
             type="number"
-            placeholder="Valor"
             value={amount}
             onChange={(e) => setAmount(Number(e.target.value))}
-            className="bg-zinc-300 p-2 rounded"
+            className="bg-zinc-300 p-2 rounded appearance-none"
+            required
           />
 
           <div className="flex justify-between gap-2">
@@ -109,9 +113,12 @@ export function ModalCreateTransaction({
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             className="bg-zinc-300 p-2 rounded"
+            required
           />
 
-          <Dialog.Close onClick={handleNewTransaction}>Cadastrar</Dialog.Close>
+          <button type="submit" className="bg-[#666666] p-2 rounded text-white">
+            Cadastrar
+          </button>
         </form>
 
         <Dialog.Close onClick={handleModal} className="absolute top-2 right-2">

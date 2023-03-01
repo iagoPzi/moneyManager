@@ -1,12 +1,12 @@
 import { Dashboard } from "./components/Dashboard";
 import { Header } from "./components/Header";
-import { ValueContextProvider } from "./Context/TransactionsContext";
+import { TransactionContextProvider } from "./Context/TransactionsContext";
 
 export function App() {
   return (
-    <ValueContextProvider>
+    <TransactionContextProvider>
       <Header />
       <Dashboard />
-    </ValueContextProvider>
+    </TransactionContextProvider>
   );
 }
