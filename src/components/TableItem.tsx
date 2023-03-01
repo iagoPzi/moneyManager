@@ -1,7 +1,6 @@
 import { Trash } from "phosphor-react";
 import { useContext } from "react";
 import { TransactionContext } from "../Context/TransactionsContext";
-import { PopOver } from "./PopOver";
 
 interface TableItemProps {
   id: string;
